@@ -94,19 +94,6 @@ p {
   padding: 20px var(--page-pad) 0;
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand h1 {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-}
-
 .layout {
   display: grid;
   grid-template-columns: minmax(320px, 440px) minmax(260px, 1fr);

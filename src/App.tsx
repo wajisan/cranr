@@ -14,7 +14,7 @@ export function App() {
     <div className="app">
       <div className="frame">
         <header className="navbar">
-          <Brand />
+          <Brand onToday={cra.today} />
           <ThemeButton dark={cra.theme === 'dark'} onToggle={cra.toggleTheme} />
         </header>
         <main className="layout">
@@ -56,12 +56,11 @@ function Summary({ cra }: { cra: ReturnType<typeof useCraState> }) {
   );
 }
 
-function Brand() {
+function Brand({ onToday }: { onToday: () => void }) {
   return (
-    <div className="brand">
+    <button type="button" className="icon-btn" aria-label="Mois en cours" onClick={onToday}>
       <Logo />
-      <h1>CRA</h1>
-    </div>
+    </button>
   );
 }
 

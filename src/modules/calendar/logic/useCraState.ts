@@ -57,6 +57,7 @@ function present(
     toggleTheme: () => setState(flipTheme),
     setMode,
     shift: (delta: number) => setState((current) => moveMonth(current, delta)),
+    today: () => setState(goToday),
     sweep: () => setState(sweepMonth),
     paintSpan: (presence: readonly string[], absences: readonly string[], anchor: string, end: string, op: StrokeOp, strokeMode: Mode) =>
       setState((current) => spanFrom(withDays(current, presence, absences), anchor, end, op, strokeMode)),
@@ -143,6 +144,11 @@ function monthPrefix(year: number, month: number): string {
 
 function moveMonth(state: CraState, delta: number): CraState {
   return ensureMonth({ ...state, ...shiftMonth(state.year, state.month, delta) });
+}
+
+function goToday(state: CraState): CraState {
+  const now = new Date();
+  return ensureMonth({ ...state, year: now.getFullYear(), month: now.getMonth() });
 }
 
 function flipTheme(state: CraState): CraState {
