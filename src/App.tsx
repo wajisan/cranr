@@ -1,12 +1,8 @@
 import type { ReactNode } from 'react';
+import { Briefcase, Moon, Sun, TreePalm } from 'lucide-react';
 import { Calendar } from './modules/calendar/components/Calendar';
 import { useCraState } from './modules/calendar/logic/useCraState';
 import { Counter } from './modules/counter/components/Counter';
-import { Logo } from './shared/icons/Logo';
-import { Moon } from './shared/icons/Moon';
-import { Suitcase } from './shared/icons/Suitcase';
-import { Sun } from './shared/icons/Sun';
-import { Tree } from './shared/icons/Tree';
 
 export function App() {
   const cra = useCraState();
@@ -14,12 +10,11 @@ export function App() {
     <div className="app">
       <div className="frame">
         <header className="navbar">
-          <Brand onToday={cra.today} />
           <ThemeButton dark={cra.theme === 'dark'} onToggle={cra.toggleTheme} />
         </header>
         <main className="layout">
-          <Calendar {...calendarProps(cra)} />
           <Summary cra={cra} />
+          <Calendar {...calendarProps(cra)} />
         </main>
       </div>
     </div>
@@ -37,6 +32,7 @@ function calendarProps(cra: ReturnType<typeof useCraState>) {
     onPaintSpan: cra.paintSpan,
     blank: cra.blank,
     onSweep: cra.sweep,
+    onToday: cra.today,
   };
 }
 
@@ -45,10 +41,10 @@ function Summary({ cra }: { cra: ReturnType<typeof useCraState> }) {
     <section className="summary">
       <div className="mode-switch">
         <ModeButton label="Présence" tone="work" pressed={cra.mode === 'presence'} onClick={() => cra.setMode('presence')}>
-          <Suitcase />
+          <Briefcase size={18} strokeWidth={1.75} aria-hidden />
         </ModeButton>
         <ModeButton label="Congé" tone="leave" pressed={cra.mode === 'absence'} onClick={() => cra.setMode('absence')}>
-          <Tree />
+          <TreePalm size={18} strokeWidth={1.75} aria-hidden />
         </ModeButton>
       </div>
       <Counter count={cra.count} />
@@ -56,18 +52,10 @@ function Summary({ cra }: { cra: ReturnType<typeof useCraState> }) {
   );
 }
 
-function Brand({ onToday }: { onToday: () => void }) {
-  return (
-    <button type="button" className="icon-btn" aria-label="Mois en cours" onClick={onToday}>
-      <Logo />
-    </button>
-  );
-}
-
 function ThemeButton({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
   return (
     <button type="button" className="icon-btn" aria-label={dark ? 'Clair' : 'Sombre'} onClick={onToggle}>
-      {dark ? <Sun /> : <Moon />}
+      {dark ? <Sun size={18} strokeWidth={1.75} aria-hidden /> : <Moon size={18} strokeWidth={1.75} aria-hidden />}
     </button>
   );
 }

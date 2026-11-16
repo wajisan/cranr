@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react';
-import { ChevronLeft } from '../../../shared/icons/ChevronLeft';
-import { ChevronRight } from '../../../shared/icons/ChevronRight';
-import { Broom } from '../../../shared/icons/Broom';
-import { TrendUp } from '../../../shared/icons/TrendUp';
+import { BrushCleaning, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react';
+import { Logo } from '../../../shared/icons/Logo';
 
 type Props = {
   label: string;
@@ -10,20 +8,24 @@ type Props = {
   onNext: () => void;
   blank: boolean;
   onSweep: () => void;
+  onToday: () => void;
 };
 
-export function MonthNav({ label, onPrev, onNext, blank, onSweep }: Props) {
+export function MonthNav({ label, onPrev, onNext, blank, onSweep, onToday }: Props) {
   return (
     <div className="month-nav">
+      <IconButton label="Mois en cours" onClick={onToday}>
+        <Logo size={18} />
+      </IconButton>
       <IconButton label="Mois précédent" onClick={onPrev}>
-        <ChevronLeft />
+        <ChevronLeft size={18} strokeWidth={1.75} aria-hidden />
       </IconButton>
       <span className="month-label">{label}</span>
       <IconButton label="Mois suivant" onClick={onNext}>
-        <ChevronRight />
+        <ChevronRight size={18} strokeWidth={1.75} aria-hidden />
       </IconButton>
       <IconButton label={blank ? 'Remplir le mois' : 'Vider le mois'} onClick={onSweep}>
-        {blank ? <TrendUp /> : <Broom />}
+        {blank ? <TrendingUp size={18} strokeWidth={1.75} aria-hidden /> : <BrushCleaning size={18} strokeWidth={1.75} aria-hidden />}
       </IconButton>
     </div>
   );

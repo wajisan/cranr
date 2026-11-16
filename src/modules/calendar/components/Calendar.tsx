@@ -14,6 +14,7 @@ type Props = {
   onPaintSpan: (presence: readonly string[], absences: readonly string[], anchor: string, end: string, op: StrokeOp, mode: Mode) => void;
   blank: boolean;
   onSweep: () => void;
+  onToday: () => void;
 };
 
 export function Calendar(props: Props) {
@@ -25,6 +26,7 @@ export function Calendar(props: Props) {
         onNext={() => props.onShift(1)}
         blank={props.blank}
         onSweep={props.onSweep}
+        onToday={props.onToday}
       />
       <CalendarGrid
         cells={buildMonthCells(props.year, props.month)}

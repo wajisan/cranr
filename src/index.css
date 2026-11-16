@@ -89,14 +89,14 @@ p {
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 20px var(--page-pad) 0;
 }
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(320px, 440px) minmax(260px, 1fr);
+  grid-template-columns: minmax(220px, 1fr) minmax(320px, 440px);
   gap: var(--gap);
   width: 100%;
   padding: 12px var(--page-pad) 48px;
@@ -107,7 +107,7 @@ p {
 
 .month-nav {
   display: grid;
-  grid-template-columns: 36px 1fr 36px 36px;
+  grid-template-columns: 36px 36px 1fr 36px 36px;
   align-items: center;
   gap: 4px;
   margin-bottom: 18px;
@@ -200,7 +200,7 @@ p {
   font-variant-numeric: tabular-nums;
   cursor: pointer;
   padding: 0;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition: background-color 180ms ease, color 180ms ease, filter 180ms ease;
 }
 
 .day.empty {
@@ -233,6 +233,11 @@ p {
 
 .day:not(:disabled):not(.range):not(.absence):hover {
   background: var(--hover);
+}
+
+.day.range:hover,
+.day.absence:hover {
+  filter: brightness(1.08);
 }
 
 .icon-btn:focus-visible,
@@ -270,13 +275,71 @@ p {
 }
 
 @media (max-width: 760px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .app {
+    height: 100dvh;
+    min-height: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  .frame {
+    min-height: 0;
+  }
+
+  .navbar {
+    padding: 8px 16px 0;
+  }
+
   .layout {
     grid-template-columns: 1fr;
-    padding-top: 20px;
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-content: stretch;
+    gap: 8px;
+    min-height: 0;
+    padding: 4px 16px 16px;
+  }
+
+  .summary {
+    min-height: 0;
   }
 
   .counter-card {
-    min-height: 220px;
+    order: 1;
+    min-height: 0;
+  }
+
+  .counter-value {
+    font-size: clamp(64px, 16vh, 120px);
+  }
+
+  .mode-switch {
+    order: 2;
+    margin-top: 8px;
+    margin-bottom: 0;
+  }
+
+  .month-nav {
+    margin-bottom: 8px;
+  }
+
+  .grid {
+    gap: 4px;
+  }
+
+  .weekday {
+    height: 24px;
+  }
+}
+
+@media (max-width: 760px) and (max-height: 660px) {
+  .day {
+    aspect-ratio: 1.2;
   }
 }
 

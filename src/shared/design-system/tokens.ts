@@ -8,6 +8,12 @@ export function applyTokens(theme: 'light' | 'dark'): void {
   applyTheme(theme);
   writeStatic(typography);
   writeStatic(spacing);
+  syncThemeColor(theme);
+}
+
+function syncThemeColor(theme: 'light' | 'dark'): void {
+  const color = theme === 'dark' ? darkColors.bg : lightColors.bg;
+  document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute('content', color));
 }
 
 function writeStatic(group: object): void {
