@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Wajitech design system : tokens CSS
+   Source de vérité : tokens.json (même dossier). Ce fichier en est le miroir.
+   Usage : <link rel="stylesheet" href="https://design.wajitech.fr/tokens/tokens.css">
+   Deux couches : primitives (valeurs de marque) puis sémantiques (--color-*),
+   à préférer dans les apps. Les tailles fluides en cqi demandent un conteneur
+   `.wj` (container-type: inline-size), voir css/base.css.
+   ========================================================================== */
+
+:root {
+  /* ---------- Primitives : couleurs (thème Sable, clair uniquement) ---------- */
+  --sand: #ede4d8;            /* fond de page */
+  --sand-raised: #f7f2ea;     /* cartes claires, pastilles, nav */
+  --night: #1a1a1a;           /* encre ; fond des cartes sombres */
+  --text-strong: #2a2622;     /* 11.9:1 sur sand */
+  --text-body: #3a3530;       /* 9.6:1 */
+  --text-secondary: #4a443e;  /* 7.6:1 */
+  --text-label: #5e5750;      /* 5.6:1 */
+  --text-muted: #645a51;      /* 5.3:1 */
+  --logo-mono: #6e645b;       /* logos tiers, grands éléments seulement (4.6:1) */
+
+  --gold: #bb905e;            /* PRIMAIRE : aplats seulement (2.3:1 sur sand), texte night dessus (6.0:1) */
+  --gold-ink: #7d5c33;        /* primaire lisible en texte (4.8:1 sur sand) */
+  --terracotta: #d97757;      /* SECONDAIRE : aplats (texte night dessus, 5.6:1) */
+  --terracotta-ink: #9c4426;  /* secondaire en texte (5.1:1) */
+  --terracotta-deep: #8e4a30; /* bande profonde, avec grain */
+  --dune: #ccc4a5;            /* ACCENT neutre : aplats seulement, texte night dessus */
+
+  --on-dark: #f7f2ea;         /* 15.6:1 sur night */
+  --on-dark-soft: #d9cfc3;    /* 11.3:1 */
+  --on-dark-label: #b3a89c;   /* 7.5:1 */
+  --on-deep-soft: #f2ddcb;    /* sur terracotta-deep, 5.0:1 */
+  --on-deep-accent: #f6d2b6;  /* sur terracotta-deep, grande taille (4.7:1) */
+
+  --hairline: rgba(26, 26, 26, 0.16);
+  --hairline-soft: rgba(26, 26, 26, 0.08);
+  --grid-line: rgba(26, 26, 26, 0.075);
+  --border: rgba(26, 26, 26, 0.14);
+  --border-strong: rgba(26, 26, 26, 0.2);
+  --glass: rgba(247, 242, 234, 0.72);
+  --glass-solid: rgba(247, 242, 234, 0.95);
+  --hover-tint: rgba(26, 26, 26, 0.05);
+  --placeholder-bg: rgba(217, 119, 87, 0.14);
+  --placeholder-ink: #7a3a20;
+  --placeholder-border: rgba(156, 68, 38, 0.45);
+
+  /* ---------- Sémantiques : à utiliser dans les apps ---------- */
+  --color-primary: var(--gold);
+  --color-primary-ink: var(--gold-ink);
+  --color-primary-contrast: var(--night);
+  --color-secondary: var(--terracotta);
+  --color-secondary-ink: var(--terracotta-ink);
+  --color-secondary-deep: var(--terracotta-deep);
+  --color-bg: var(--sand);
+  --color-surface: var(--sand-raised);
+  --color-text: var(--night);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+  --color-on-dark: var(--on-dark);
+  --color-focus: var(--gold-ink);
+
+  /* Alias de compatibilité avec le site wajitech.fr */
+  --accent: var(--color-primary);
+  --accent-ink: var(--color-primary-ink);
+  --accent-deep: var(--color-secondary-deep);
+
+  /* ---------- Typographie ---------- */
+  --font-display: Archivo, "Arial Narrow", sans-serif;
+  --font-text: "Inter Tight", Inter, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-logo: "Space Grotesk", sans-serif;
+
+  --fs-hero: clamp(46px, 10.4cqi, 160px);
+  --fs-contact: clamp(52px, 9.6cqi, 150px);
+  --fs-section: clamp(34px, 4.4cqi, 64px);
+  --fs-display-l: clamp(40px, 4.2cqi, 64px);
+  --fs-display-m: clamp(34px, 3.4cqi, 52px);
+  --fs-display-s: 40px;
+  --fs-number: clamp(88px, 9cqi, 140px);
+  --fs-quote: clamp(36px, 4.8cqi, 72px);
+  --fs-lead: clamp(21px, 2cqi, 28px);
+  --fs-body-l: 20px;
+  --fs-body: 17px;
+  --fs-body-s: 15px;
+  --fs-button: 16px;
+  --fs-label: 12px;
+  --fs-tag: 12.5px;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-display: 850;
+  --lh-display: 0.86;
+  --lh-heading: 1.04;
+  --lh-body: 1.55;
+
+  /* ---------- Espacement ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-14: 56px;
+  --space-24: 96px;
+  --space-section: clamp(112px, 13cqi, 208px);
+  --page-gutter: clamp(20px, 4cqi, 64px);
+  --page-max: 1360px;
+  --grid-gap: clamp(16px, 2cqi, 32px);
+
+  /* ---------- Rayons ---------- */
+  --radius-xs: 6px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --radius-arch: 999px 999px 24px 24px;
+
+  /* ---------- Ombres ---------- */
+  --shadow-card-hover: 0 30px 60px -36px rgba(122, 62, 30, 0.45);
+  --shadow-image: 0 40px 70px -40px rgba(0, 0, 0, 0.6);
+
+  /* ---------- Mouvement ---------- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 0.3s;
+  --dur-base: 0.45s;
+}
