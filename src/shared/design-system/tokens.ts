@@ -1,28 +1,11 @@
-import { applyTheme, darkColors, lightColors } from './colors';
-import { spacing } from './spacing';
-import { typography } from './typography';
+export type Theme = 'light' | 'dark';
 
-export const tokens = { lightColors, darkColors, typography, spacing };
+export const themeColors: Record<Theme, string> = {
+  light: '#ede4d8',
+  dark: '#1a1a1a',
+};
 
-export function applyTokens(theme: 'light' | 'dark'): void {
-  applyTheme(theme);
-  writeStatic(typography);
-  writeStatic(spacing);
-  syncThemeColor(theme);
-}
-
-function syncThemeColor(theme: 'light' | 'dark'): void {
-  const color = theme === 'dark' ? darkColors.bg : lightColors.bg;
-  document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute('content', color));
-}
-
-function writeStatic(group: object): void {
-  const root = document.documentElement;
-  for (const [name, value] of Object.entries(group)) {
-    root.style.setProperty(`--${toKebab(name)}`, String(value));
-  }
-}
-
-function toKebab(name: string): string {
-  return name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+export function applyTokens(theme: Theme): void {
+  document.documentElement.dataset.theme = theme;
+  document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute('content', themeColors[theme]));
 }

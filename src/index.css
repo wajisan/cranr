@@ -1,50 +1,45 @@
 :root {
   color-scheme: light;
-  --bg: #ffffff;
-  --card: #ffffff;
-  --text: #141414;
-  --muted: #8a8a8a;
-  --range-bg: #d5e4f7;
-  --range-text: #1a3f73;
-  --work-ink: #1a3f73;
-  --absence-bg: #f3e4b8;
-  --absence-text: #6e5310;
-  --leave-ink: #8a6914;
-  --off-text: #ffffff;
-  --off-bg: #141414;
-  --hover: #f4f4f4;
-  --shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-  --border: #efefef;
-  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bg: var(--color-bg);
+  --card: var(--color-surface);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --range-bg: var(--dune);
+  --range-text: var(--night);
+  --work-ink: var(--text-secondary);
+  --absence-bg: var(--gold);
+  --absence-text: var(--night);
+  --leave-ink: var(--gold-ink);
+  --off-text: var(--on-dark);
+  --off-bg: var(--night);
+  --hover: var(--hover-tint);
+  --focus: var(--color-focus);
+  --font: var(--font-text);
   --counter-size: clamp(96px, 14vw, 160px);
-  --counter-weight: 400;
-  --body-size: 14px;
+  --body-size: var(--fs-body-s);
   --small-size: 13px;
-  --label-size: 11px;
-  --radius: 16px;
+  --label-size: var(--fs-label);
+  --radius: var(--radius-lg);
   --gap: 24px;
   --card-pad: 28px;
   --page-pad: 28px;
-  --day-radius: 12px;
+  --day-radius: var(--radius-md);
+  --day-bg: var(--sand-raised);
 }
 
 html[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #141414;
-  --card: #1c1c1c;
-  --text: #f5f5f5;
-  --muted: #8a8a8a;
-  --range-bg: #243e66;
-  --range-text: #d5e4f7;
-  --work-ink: #9dbeea;
-  --absence-bg: #5a4a22;
-  --absence-text: #f6e7c1;
-  --leave-ink: #e4c56a;
-  --off-text: #f5f5f5;
-  --off-bg: #0a0a0a;
-  --hover: #2a2a2a;
-  --shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
-  --border: #2a2a2a;
+  --bg: var(--night);
+  --card: #232120;
+  --text: var(--on-dark);
+  --muted: var(--on-dark-label);
+  --work-ink: var(--dune);
+  --leave-ink: var(--gold);
+  --off-text: var(--on-dark-label);
+  --off-bg: rgba(247, 242, 234, 0.08);
+  --hover: rgba(247, 242, 234, 0.08);
+  --day-bg: #232120;
+  --focus: var(--gold);
 }
 
 *,
@@ -65,7 +60,8 @@ body {
   color: var(--text);
   font-family: var(--font);
   font-size: var(--body-size);
-  transition: background-color 300ms ease, color 300ms ease;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
 
 button,
@@ -116,9 +112,11 @@ p {
 .month-label {
   text-align: center;
   color: var(--muted);
-  font-size: var(--small-size);
+  font-family: var(--font-mono);
+  font-size: var(--label-size);
+  text-transform: uppercase;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .icon-btn {
@@ -127,12 +125,12 @@ p {
   display: grid;
   place-items: center;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--text);
   cursor: pointer;
   padding: 0;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
 
 .icon-btn:hover {
@@ -149,12 +147,12 @@ p {
 
 .icon-btn.work.active {
   background: var(--range-bg);
-  color: var(--work-ink);
+  color: var(--range-text);
 }
 
 .icon-btn.leave.active {
   background: var(--absence-bg);
-  color: var(--leave-ink);
+  color: var(--absence-text);
 }
 
 .mode-switch {
@@ -185,22 +183,24 @@ p {
   place-items: center;
   height: 28px;
   color: var(--muted);
+  font-family: var(--font-mono);
   font-size: var(--label-size);
-  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .day {
   aspect-ratio: 1;
   border: 0;
   border-radius: var(--day-radius);
-  background: transparent;
+  background: var(--day-bg);
   color: var(--text);
   font-weight: 500;
-  font-size: 14px;
+  font-size: var(--fs-body-s);
   font-variant-numeric: tabular-nums;
   cursor: pointer;
   padding: 0;
-  transition: background-color 180ms ease, color 180ms ease, filter 180ms ease;
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease);
 }
 
 .day.empty {
@@ -232,7 +232,7 @@ p {
 }
 
 .day:not(:disabled):not(.range):not(.absence):hover {
-  background: var(--hover);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
 }
 
 .day.range:hover,
@@ -242,7 +242,7 @@ p {
 
 .icon-btn:focus-visible,
 .day:focus-visible {
-  outline: 2px solid var(--muted);
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
@@ -258,11 +258,12 @@ p {
 .counter-value {
   margin: 0;
   font-size: var(--counter-size);
-  font-weight: var(--counter-weight);
-  letter-spacing: -0.04em;
-  line-height: 0.85;
+  font-family: var(--font-text);
+  font-weight: var(--fw-light);
+  letter-spacing: -0.03em;
+  line-height: var(--lh-heading);
   font-variant-numeric: tabular-nums;
-  animation: fade 180ms ease;
+  animation: fade var(--dur-fast) var(--ease);
 }
 
 @keyframes fade {

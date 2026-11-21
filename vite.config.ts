@@ -17,8 +17,8 @@ export default defineConfig({
         orientation: 'portrait',
         start_url: '/',
         scope: '/',
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
+        theme_color: '#ede4d8',
+        background_color: '#ede4d8',
         icons: [
           { src: 'pwa-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'pwa-512.png', sizes: '512x512', type: 'image/png' },
@@ -28,6 +28,7 @@ export default defineConfig({
       workbox: {
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}'],
       },
     }),
   ],
