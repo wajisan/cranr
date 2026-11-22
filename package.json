@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync:ds": "bun scripts/sync-design-system.ts"
   },
   "dependencies": {
     "lucide-react": "^1.73.0",

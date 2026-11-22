@@ -1,4 +1,4 @@
-/* Polices auto-hébergées (copie de design.wajitech.fr/css/fonts.css) */
+/* Polices auto-hébergées (latin, woff2). Chemins relatifs : fonctionne servi depuis design.wajitech.fr/css/. */
 @font-face {
   font-family: Archivo;
   font-style: normal;
@@ -20,4 +20,11 @@
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/jetbrains-mono.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/space-grotesk.woff2") format("woff2");
 }

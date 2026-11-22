@@ -18,11 +18,19 @@ type Props = {
 
 export function CalendarGrid(props: Props) {
   const drag = useDragSession(props.onPaintSpan);
+  const edges = edgeKeys(props.cells);
+  const firstIndex = props.cells.findIndex((key) => key !== null);
   return (
     <div className="grid">
       <Weekdays />
       {props.cells.map((dateKey, index) => (
-        <Cell key={dateKey ?? `e-${index}`} dateKey={dateKey} {...props} onStart={(key) => startDrag(drag, key, props)} />
+        <Cell
+          key={dateKey ?? `e-${index}`}
+          dateKey={dateKey}
+          edgeKey={index < firstIndex ? edges.first : edges.last}
+          {...props}
+          onStart={(key) => startDrag(drag, key, props)}
+        />
       ))}
     </div>
   );
@@ -79,9 +87,24 @@ function paintDrag(stroke: Drag, key: string, onPaintSpan: Props['onPaintSpan'])
 }
 
 function businessDayAt(x: number, y: number): string | null {
-  const key = document.elementFromPoint(x, y)?.closest('[data-date]')?.getAttribute('data-date');
-  if (!key || !isBusinessDay(key)) return null;
-  return key;
+  const target = document.elementFromPoint(x, y);
+  const key = target?.closest('[data-date]')?.getAttribute('data-date');
+  if (key) return isBusinessDay(key) ? key : null;
+  return edgeKeyAt(x, y);
+}
+
+// Les cases vides sont `visibility: hidden` : elles échappent à elementFromPoint, on teste leur rectangle.
+function edgeKeyAt(x: number, y: number): string | null {
+  for (const cell of document.querySelectorAll<HTMLElement>('[data-edge-key]')) {
+    const rect = cell.getBoundingClientRect();
+    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) return cell.dataset.edgeKey ?? null;
+  }
+  return null;
+}
+
+function edgeKeys(cells: readonly (string | null)[]) {
+  const days = cells.filter((key): key is string => key !== null && isBusinessDay(key));
+  return { first: days[0] ?? null, last: days[days.length - 1] ?? null };
 }
 
 function Weekdays() {
@@ -92,8 +115,8 @@ function Weekdays() {
   ));
 }
 
-function Cell(props: Props & { dateKey: string | null; onStart: (key: string) => void }) {
-  if (!props.dateKey) return <span className="day empty" />;
+function Cell(props: Props & { dateKey: string | null; edgeKey: string | null; onStart: (key: string) => void }) {
+  if (!props.dateKey) return <span className="day empty" data-edge-key={props.edgeKey ?? undefined} />;
   return (
     <CalendarDay
       dateKey={props.dateKey}

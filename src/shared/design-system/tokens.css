@@ -24,6 +24,7 @@
   --terracotta: #d97757;      /* SECONDAIRE : aplats (texte night dessus, 5.6:1) */
   --terracotta-ink: #9c4426;  /* secondaire en texte (5.1:1) */
   --terracotta-deep: #8e4a30; /* bande profonde, avec grain */
+  --sunrise: #c9963f;         /* ACCENT chaud : aplats seulement, texte night dessus */
   --dune: #ccc4a5;            /* ACCENT neutre : aplats seulement, texte night dessus */
 
   --on-dark: #f7f2ea;         /* 15.6:1 sur night */

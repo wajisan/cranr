@@ -3,6 +3,7 @@ import { BrushCleaning, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-rea
 import { Logo } from '../../../shared/icons/Logo';
 
 type Props = {
+  isCurrentMonth: boolean;
   label: string;
   onPrev: () => void;
   onNext: () => void;
@@ -11,10 +12,10 @@ type Props = {
   onToday: () => void;
 };
 
-export function MonthNav({ label, onPrev, onNext, blank, onSweep, onToday }: Props) {
+export function MonthNav({ isCurrentMonth, label, onPrev, onNext, blank, onSweep, onToday }: Props) {
   return (
     <div className="month-nav">
-      <IconButton label="Mois en cours" onClick={onToday}>
+      <IconButton label="Mois en cours" onClick={onToday} hidden={isCurrentMonth}>
         <Logo size={18} />
       </IconButton>
       <IconButton label="Mois précédent" onClick={onPrev}>
@@ -34,17 +35,29 @@ export function MonthNav({ label, onPrev, onNext, blank, onSweep, onToday }: Pro
 function IconButton({
   label,
   pressed,
+  hidden,
   onClick,
   children,
 }: {
   label: string;
   pressed?: boolean;
+  hidden?: boolean;
   onClick: () => void;
   children: ReactNode;
 }) {
   const active = pressed ? 'icon-btn active' : 'icon-btn';
   return (
-    <button type="button" className={active} aria-label={label} aria-pressed={pressed} onClick={onClick}>
+    <button
+      type="button"
+      className={active}
+      aria-label={label}
+      aria-pressed={pressed}
+      aria-hidden={hidden || undefined}
+      data-hidden={hidden || undefined}
+      disabled={hidden}
+      tabIndex={hidden ? -1 : undefined}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
