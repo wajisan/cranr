@@ -29,6 +29,14 @@ export default defineConfig({
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}'],
+        runtimeCaching: [
+          {
+            // Tokens du design system : réseau d'abord, dernière version en cache hors ligne
+            urlPattern: /^https:\/\/design\.wajitech\.fr\/tokens\/tokens\.css/,
+            handler: 'NetworkFirst',
+            options: { cacheName: 'design-system', networkTimeoutSeconds: 3, cacheableResponse: { statuses: [0, 200] } },
+          },
+        ],
       },
     }),
   ],
