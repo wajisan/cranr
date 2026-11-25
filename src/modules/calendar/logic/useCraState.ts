@@ -54,6 +54,7 @@ function present(
     mode,
     blank: monthIsBlank(state),
     count: netDays(state),
+    total: businessDaysInMonth(state.year, state.month).length,
     toggleTheme: () => setState(flipTheme),
     setMode,
     shift: (delta: number) => setState((current) => moveMonth(current, delta)),

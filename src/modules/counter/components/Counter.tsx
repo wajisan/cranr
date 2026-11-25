@@ -1,10 +1,15 @@
-type Props = { count: number };
+type Props = { count: number; total: number };
 
-export function Counter({ count }: Props) {
+export function Counter({ count, total }: Props) {
   return (
     <section className="counter-card" aria-live="polite">
       <p key={count} className="counter-value">
-        {count}
+        <span className="counter-number">
+          {count}
+          <span className="counter-total" title="Jours ouvrés du mois">
+            {total}
+          </span>
+        </span>
       </p>
     </section>
   );

@@ -1,6 +1,6 @@
-// Synchronise tokens, polices, favicon et icônes depuis https://design.wajitech.fr
+// Synchronise tokens et polices depuis https://design.wajitech.fr ; régénère favicon et icônes depuis public/app-icon.svg
 // Usage : bun run sync:ds   (fichiers générés : ne pas les éditer à la main)
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
@@ -32,15 +32,15 @@ const fontFiles = [...fonts.matchAll(/url\("\.\.\/fonts\/([^"]+)"\)/g)].map((mat
 await save('src/shared/design-system/fonts.css', fonts.replaceAll('../fonts/', '/fonts/'));
 for (const file of fontFiles) await save(`public/fonts/${file}`, await fetchBytes(`fonts/${file}`));
 
-await save('public/favicon.svg', await fetchText('favicon/favicon.svg'));
-
-// Icônes d'app : PNG générés depuis wajitech-app-icon.svg (nécessite rsvg-convert)
-const appIcon = await fetchText('logos/svg/wajitech-app-icon.svg');
+// Icônes d'app : logo « C » propre à l'app (public/app-icon.svg, source éditée à la main),
+// favicon et PNG générés depuis ce fichier (nécessite rsvg-convert)
+const appIcon = await readFile('public/app-icon.svg', 'utf8');
+await save('public/favicon.svg', appIcon);
 const square = appIcon.replace(' rx="14"', '');
-const maskable = square.replace(
-  /(<path[\s\S]*<\/svg>)/,
-  '<g transform="translate(6.4 6.4) scale(0.8)">$1',
-).replace('</svg>', '</g></svg>');
+// Maskable : tout ce qui suit le fond est réduit à 80 % (zone sûre)
+const maskable = square
+  .replace(/(<rect width="64" height="64"[^>]*\/>)/, '$1<g transform="translate(6.4 6.4) scale(0.8)">')
+  .replace(/<\/svg>\s*$/, '</g></svg>');
 const sizes: [string, string, number][] = [
   ['public/pwa-192.png', appIcon, 192],
   ['public/pwa-512.png', appIcon, 512],

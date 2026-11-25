@@ -47,7 +47,7 @@ function Summary({ cra }: { cra: ReturnType<typeof useCraState> }) {
           <TreePalm size={18} strokeWidth={1.75} aria-hidden />
         </ModeButton>
       </div>
-      <Counter count={cra.count} />
+      <Counter count={cra.count} total={cra.total} />
     </section>
   );
 }
